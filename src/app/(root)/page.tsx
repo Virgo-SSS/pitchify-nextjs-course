@@ -1,4 +1,5 @@
 import SearchForm from "@/components/SearchForm";
+import StartupCard from "@/components/StartupCard";
 
 export default async function Home({
   searchParams,
@@ -6,6 +7,54 @@ export default async function Home({
   searchParams: Promise<{ search?: string }>;
 }) {
   const { search = "" } = await searchParams;
+
+  const posts: Post[] = [
+    {
+      id: 1,
+      title: "Startup 1",
+      description: "Description for startup 1",
+      imageUrl: "https://picsum.photos/seed/picsum/200/300",
+      createdAt: new Date().toISOString(),
+      author: {
+        id: 1,
+        name: "John Doe",
+      },
+      tags: ["Tech", "AI"],
+    },
+    {
+      id: 2,
+      title: "Startup 2",
+      description: "Description for startup 2",
+      imageUrl: "https://picsum.photos/seed/picsum/200/300",
+      createdAt: new Date().toISOString(),
+      author: {
+        id: 2,
+        name: "Jane Smith",
+      },
+    },
+    {
+      id: 3,
+      title: "Startup 3",
+      description: "Description for startup 3",
+      imageUrl: "https://picsum.photos/seed/picsum/200/300",
+      createdAt: new Date().toISOString(),
+      author: {
+        id: 3,
+        name: "Alice Johnson",
+      },
+    },
+    {
+      id: 4,
+      title: "Startup 4",
+      description: "Description for startup 3",
+      imageUrl: "https://picsum.photos/seed/picsum/200/300",
+      createdAt: new Date().toISOString(),
+      author: {
+        id: 4,
+        name: "Bob Brown",
+      },
+    },
+  ];
 
   return (
     <>
@@ -26,12 +75,25 @@ export default async function Home({
       </section>
 
       {/* Section for Content */}
-      <section className="flex flex-col items-center justify-center h-screen text-black">
-        <h2 className="text-4xl font-bold text-center">Featured Startups</h2>
-        <p className="mt-4 text-lg text-center">
-          Discover the latest startups and investment opportunities.
+      <section className="bg-gray-100 p-10">
+        <p className="text-2xl font-bold">
+          {search
+            ? `Search results for "${search}"`
+            : "Explore Startups and Investors"}
         </p>
-        {/* Add your content here */}
+        <ul className="mt-4 grid md:grid-cols-3 sm:grid-cols-2 gap-5">
+          {posts ? (
+            posts.map((post) => (
+              <li key={post.id}>
+                <StartupCard post={post} />
+              </li>
+            ))
+          ) : (
+            <li className="col-span-3 text-center text-gray-500">
+              No results found.
+            </li>
+          )}
+        </ul>
       </section>
     </>
   );
