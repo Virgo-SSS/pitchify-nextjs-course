@@ -1,5 +1,7 @@
 import SearchForm from "@/components/SearchForm";
 import StartupCard from "@/components/StartupCard";
+import { client } from "@/sanity/lib/client";
+import { STARTUP_QUERY } from "@/sanity/lib/queries";
 
 export default async function Home({
   searchParams,
@@ -8,53 +10,7 @@ export default async function Home({
 }) {
   const { search = "" } = await searchParams;
 
-  const posts: Post[] = [
-    {
-      id: 1,
-      title: "Startup 1",
-      description: "Description for startup 1",
-      imageUrl: "https://picsum.photos/seed/picsum/200/300",
-      createdAt: new Date().toISOString(),
-      author: {
-        id: 1,
-        name: "John Doe",
-      },
-      tags: ["Tech", "AI"],
-    },
-    {
-      id: 2,
-      title: "Startup 2",
-      description: "Description for startup 2",
-      imageUrl: "https://picsum.photos/seed/picsum/200/300",
-      createdAt: new Date().toISOString(),
-      author: {
-        id: 2,
-        name: "Jane Smith",
-      },
-    },
-    {
-      id: 3,
-      title: "Startup 3",
-      description: "Description for startup 3",
-      imageUrl: "https://picsum.photos/seed/picsum/200/300",
-      createdAt: new Date().toISOString(),
-      author: {
-        id: 3,
-        name: "Alice Johnson",
-      },
-    },
-    {
-      id: 4,
-      title: "Startup 4",
-      description: "Description for startup 3",
-      imageUrl: "https://picsum.photos/seed/picsum/200/300",
-      createdAt: new Date().toISOString(),
-      author: {
-        id: 4,
-        name: "Bob Brown",
-      },
-    },
-  ];
+  const posts: Post[] = await client.fetch(STARTUP_QUERY);
 
   return (
     <>
@@ -84,7 +40,7 @@ export default async function Home({
         <ul className="mt-4 grid md:grid-cols-3 sm:grid-cols-2 gap-5">
           {posts ? (
             posts.map((post) => (
-              <li key={post.id}>
+              <li key={post._id}>
                 <StartupCard post={post} />
               </li>
             ))

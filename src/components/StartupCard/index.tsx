@@ -24,7 +24,7 @@ export default function StartupCard({ post }: StartupCardProps) {
         </div>
 
         <div className="flex flex-col mt-5">
-          <Link href={`/post/${post.id}`} className="mb-1">
+          <Link href={`/post/${post._id}`} className="mb-1">
             <h2 className="text-lg font-bold text-gray-800 hover:text-gray-400">
               {post.title}
             </h2>
@@ -56,7 +56,7 @@ export default function StartupCard({ post }: StartupCardProps) {
           </div>
 
           <Link
-            href={`/post/${post.id}`}
+            href={`/post/${post._id}`}
             className="text-black text-sm font-semibold hover:text-cyan-500"
             target="_blank"
           >
